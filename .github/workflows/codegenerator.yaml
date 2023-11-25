@@ -7,7 +7,8 @@ name: CI-CD CommonAPI Code Generator
 
 on:
   push:
-    branches: [ "car_control" ]
+    # branches: [ "car_control" ]
+    branches: [ "main" ]
     paths:
       - 'car_control/fidl/**.fidl'
       - 'car_control/fidl/**.fdepl'

@@ -11,7 +11,7 @@ interface CarControl {
             String selectedGear
         }
         out { 
-            Boolean accepted
+            Boolean accepte
         }
     }
 }
