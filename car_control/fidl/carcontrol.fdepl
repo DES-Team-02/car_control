@@ -1,0 +1,46 @@
+import "platform:/plugin/org.genivi.commonapi.someip/deployment/CommonAPI-4-SOMEIP_deployment_spec.fdepl"
+import "carcontrol.fidl"
+
+define org.genivi.commonapi.someip.deployment for interface commonapi.CarControl {
+
+    SomeIpServiceID = 4000
+
+    attribute indicator {
+        SomeIpNotifierEventGroups = { 4100 }
+        SomeIpNotifierID = 41000
+        SomeIpGetterID = 4101
+        SomeIpAttributeReliable = true
+    }
+
+    attribute gear {
+            SomeIpNotifierEventGroups = { 4200 }
+            SomeIpNotifierID = 42000
+            SomeIpGetterID = 4201
+            SomeIpAttributeReliable = true
+    }
+
+    method gearSelectionHeadUnit {
+        SomeIpMethodID = 4200
+        SomeIpReliable = true
+        in {
+            selectedGear {
+                SomeIpStringEncoding = utf16le
+            }
+        }
+        out {
+            accepted {
+            }
+        }
+    }    
+}
+
+define org.genivi.commonapi.someip.deployment for provider as Service {
+    instance commonapi.CarControl{
+        InstanceId = "commonapi.CarControl"
+        SomeIpInstanceID = 4001
+        SomeIpUnicastAddress = "192.168.0.2"
+        SomeIpReliableUnicastPort = 40010
+        SomeIpUnreliableUnicastPort = 40011
+    }
+}
+

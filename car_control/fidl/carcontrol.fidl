@@ -1,0 +1,17 @@
+package commonapi
+
+interface CarControl {
+    version { major 0 minor 1 }
+
+    attribute String indicator readonly
+    attribute String gear readonly
+    
+    method gearSelectionHeadUnit {
+        in { 
+            String selectedGear
+        }
+        out { 
+            Boolean accepted
+        }
+    }
+}
