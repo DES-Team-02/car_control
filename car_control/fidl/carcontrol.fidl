@@ -6,9 +6,9 @@ interface CarControl {
     attribute String indicator readonly
     attribute String gear readonly
     
-    method gearSelectionHeadUnit {
+    method gearSelectionHeadUni {
         in { 
-            String selectedGea
+            String selectedGear
         }
         out { 
             Boolean accepted
