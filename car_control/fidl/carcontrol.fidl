@@ -4,7 +4,7 @@ interface CarControl {
     version { major 0 minor 1 }
 
     attribute String indicator readonly
-    attribute String gea readonly
+    attribute String gear readonly
     
     method gearSelectionHeadUnit {
         in { 
