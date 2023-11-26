@@ -76,7 +76,7 @@ public:
         std::tuple< bool>,
         std::tuple< CommonAPI::SomeIP::StringDeployment>,
         std::tuple< CommonAPI::EmptyDeployment>
-    > gearSelectionHeadUnitStubDispatcher;
+    > gearSelectionHeadUniStubDispatcher;
     
     CarControlSomeIPStubAdapterInternal(
         const CommonAPI::SomeIP::Address &_address,
@@ -100,17 +100,17 @@ public:
             false,
             _stub->hasElement(1))
         ,
-        gearSelectionHeadUnitStubDispatcher(
-            &CarControlStub::gearSelectionHeadUnit,
+        gearSelectionHeadUniStubDispatcher(
+            &CarControlStub::gearSelectionHeadUni,
             false,
             _stub->hasElement(2),
-            std::make_tuple(&::v0::commonapi::CarControl_::gearSelectionHeadUnit_selectedGearDeployment),
+            std::make_tuple(&::v0::commonapi::CarControl_::gearSelectionHeadUni_selectedGearDeployment),
             std::make_tuple(static_cast< CommonAPI::EmptyDeployment* >(nullptr)))
         
     {
         CarControlSomeIPStubAdapterHelper::addStubDispatcher( { CommonAPI::SomeIP::method_id_t(0x1005) }, &getIndicatorAttributeStubDispatcher );
         CarControlSomeIPStubAdapterHelper::addStubDispatcher( { CommonAPI::SomeIP::method_id_t(0x1069) }, &getGearAttributeStubDispatcher );
-        CarControlSomeIPStubAdapterHelper::addStubDispatcher( { CommonAPI::SomeIP::method_id_t(0x1068) }, &gearSelectionHeadUnitStubDispatcher );
+        CarControlSomeIPStubAdapterHelper::addStubDispatcher( { CommonAPI::SomeIP::method_id_t(0x1068) }, &gearSelectionHeadUniStubDispatcher );
         std::shared_ptr<CommonAPI::SomeIP::ClientId> itsClient = std::make_shared<CommonAPI::SomeIP::ClientId>(0xFFFF, 0xFFFFFFFF, 0xFFFFFFFF);
 
         // Provided events/fields

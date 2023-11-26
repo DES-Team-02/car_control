@@ -64,8 +64,8 @@ CarControlSomeIPProxy::GearAttribute& CarControlSomeIPProxy::getGearAttribute() 
 }
 
 
-void CarControlSomeIPProxy::gearSelectionHeadUnit(std::string _selectedGear, CommonAPI::CallStatus &_internalCallStatus, bool &_accepted, const CommonAPI::CallInfo *_info) {
-    CommonAPI::Deployable< std::string, CommonAPI::SomeIP::StringDeployment> deploy_selectedGear(_selectedGear, &::v0::commonapi::CarControl_::gearSelectionHeadUnit_selectedGearDeployment);
+void CarControlSomeIPProxy::gearSelectionHeadUni(std::string _selectedGear, CommonAPI::CallStatus &_internalCallStatus, bool &_accepted, const CommonAPI::CallInfo *_info) {
+    CommonAPI::Deployable< std::string, CommonAPI::SomeIP::StringDeployment> deploy_selectedGear(_selectedGear, &::v0::commonapi::CarControl_::gearSelectionHeadUni_selectedGearDeployment);
     CommonAPI::Deployable< bool, CommonAPI::EmptyDeployment> deploy_accepted(static_cast< CommonAPI::EmptyDeployment* >(nullptr));
     CommonAPI::SomeIP::ProxyHelper<
         CommonAPI::SomeIP::SerializableArguments<
@@ -92,8 +92,8 @@ void CarControlSomeIPProxy::gearSelectionHeadUnit(std::string _selectedGear, Com
     _accepted = deploy_accepted.getValue();
 }
 
-std::future<CommonAPI::CallStatus> CarControlSomeIPProxy::gearSelectionHeadUnitAsync(const std::string &_selectedGear, GearSelectionHeadUnitAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
-    CommonAPI::Deployable< std::string, CommonAPI::SomeIP::StringDeployment> deploy_selectedGear(_selectedGear, &::v0::commonapi::CarControl_::gearSelectionHeadUnit_selectedGearDeployment);
+std::future<CommonAPI::CallStatus> CarControlSomeIPProxy::gearSelectionHeadUniAsync(const std::string &_selectedGear, GearSelectionHeadUniAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
+    CommonAPI::Deployable< std::string, CommonAPI::SomeIP::StringDeployment> deploy_selectedGear(_selectedGear, &::v0::commonapi::CarControl_::gearSelectionHeadUni_selectedGearDeployment);
     CommonAPI::Deployable< bool, CommonAPI::EmptyDeployment> deploy_accepted(static_cast< CommonAPI::EmptyDeployment* >(nullptr));
     return CommonAPI::SomeIP::ProxyHelper<
         CommonAPI::SomeIP::SerializableArguments<

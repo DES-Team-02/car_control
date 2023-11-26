@@ -109,7 +109,7 @@ class CarControlStub
     : public virtual CommonAPI::Stub<CarControlStubAdapter, CarControlStubRemoteEvent>
 {
 public:
-    typedef std::function<void (bool _accepted)> gearSelectionHeadUnitReply_t;
+    typedef std::function<void (bool _accepted)> gearSelectionHeadUniReply_t;
 
     virtual ~CarControlStub() {}
     void lockInterfaceVersionAttribute(bool _lockAccess) { static_cast<void>(_lockAccess); }
@@ -144,8 +144,8 @@ public:
         if (stubAdapter)
             stubAdapter->lockGearAttribute(_lockAccess);
     }
-    /// This is the method that will be called on remote calls on the method gearSelectionHeadUnit.
-    virtual void gearSelectionHeadUnit(const std::shared_ptr<CommonAPI::ClientId> _client, std::string _selectedGear, gearSelectionHeadUnitReply_t _reply) = 0;
+    /// This is the method that will be called on remote calls on the method gearSelectionHeadUni.
+    virtual void gearSelectionHeadUni(const std::shared_ptr<CommonAPI::ClientId> _client, std::string _selectedGear, gearSelectionHeadUniReply_t _reply) = 0;
 
 
     using CommonAPI::Stub<CarControlStubAdapter, CarControlStubRemoteEvent>::initStubAdapter;
