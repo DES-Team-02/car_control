@@ -40,12 +40,12 @@ public:
     typedef CommonAPI::ObservableReadonlyAttribute<std::string> IndicatorAttribute;
     typedef CommonAPI::ObservableReadonlyAttribute<std::string> GearAttribute;
 
-    typedef std::function<void(const CommonAPI::CallStatus&, const bool&)> GearSelectionHeadUniAsyncCallback;
+    typedef std::function<void(const CommonAPI::CallStatus&, const bool&)> GearSelectionHeadUnitAsyncCallback;
 
     virtual IndicatorAttribute& getIndicatorAttribute() = 0;
     virtual GearAttribute& getGearAttribute() = 0;
-    virtual void gearSelectionHeadUni(std::string _selectedGear, CommonAPI::CallStatus &_internalCallStatus, bool &_accepted, const CommonAPI::CallInfo *_info = nullptr) = 0;
-    virtual std::future<CommonAPI::CallStatus> gearSelectionHeadUniAsync(const std::string &_selectedGear, GearSelectionHeadUniAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr) = 0;
+    virtual void gearSelectionHeadUnit(std::string _selectedGear, CommonAPI::CallStatus &_internalCallStatus, bool &_accepted, const CommonAPI::CallInfo *_info = nullptr) = 0;
+    virtual std::future<CommonAPI::CallStatus> gearSelectionHeadUnitAsync(const std::string &_selectedGear, GearSelectionHeadUnitAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr) = 0;
 
     virtual std::future<void> getCompletionFuture() = 0;
 };

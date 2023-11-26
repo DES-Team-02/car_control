@@ -33,7 +33,7 @@ namespace CarControl_ {
 // Attribute-specific deployments
 
 // Argument-specific deployment
-COMMONAPI_EXPORT extern CommonAPI::SomeIP::StringDeployment gearSelectionHeadUni_selectedGearDeployment;
+COMMONAPI_EXPORT extern CommonAPI::SomeIP::StringDeployment gearSelectionHeadUnit_selectedGearDeployment;
 
 // Broadcast-specific deployments
 

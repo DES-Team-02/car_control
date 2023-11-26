@@ -83,7 +83,7 @@ public:
         return delegate_->getGearAttribute();
     }
     /**
-     * Calls gearSelectionHeadUni with synchronous semantics.
+     * Calls gearSelectionHeadUnit with synchronous semantics.
      *
      * All const parameters are input parameters to this method.
      * All non-const parameters will be filled with the returned values.
@@ -91,9 +91,9 @@ public:
      * "SUCCESS" or which type of error has occurred. In case of an error, ONLY the CallStatus
      * will be set.
      */
-    virtual void gearSelectionHeadUni(std::string _selectedGear, CommonAPI::CallStatus &_internalCallStatus, bool &_accepted, const CommonAPI::CallInfo *_info = nullptr);
+    virtual void gearSelectionHeadUnit(std::string _selectedGear, CommonAPI::CallStatus &_internalCallStatus, bool &_accepted, const CommonAPI::CallInfo *_info = nullptr);
     /**
-     * Calls gearSelectionHeadUni with asynchronous semantics.
+     * Calls gearSelectionHeadUnit with asynchronous semantics.
      *
      * The provided callback will be called when the reply to this call arrives or
      * an error occurs during the call. The CallStatus will indicate either "SUCCESS"
@@ -102,7 +102,7 @@ public:
      * The std::future returned by this method will be fulfilled at arrival of the reply.
      * It will provide the same value for CallStatus as will be handed to the callback.
      */
-    virtual std::future<CommonAPI::CallStatus> gearSelectionHeadUniAsync(const std::string &_selectedGear, GearSelectionHeadUniAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr);
+    virtual std::future<CommonAPI::CallStatus> gearSelectionHeadUnitAsync(const std::string &_selectedGear, GearSelectionHeadUnitAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr);
 
 
 
@@ -167,13 +167,13 @@ CarControlProxy<_AttributeExtensions...>::~CarControlProxy() {
 }
 
 template <typename ... _AttributeExtensions>
-void CarControlProxy<_AttributeExtensions...>::gearSelectionHeadUni(std::string _selectedGear, CommonAPI::CallStatus &_internalCallStatus, bool &_accepted, const CommonAPI::CallInfo *_info) {
-    delegate_->gearSelectionHeadUni(_selectedGear, _internalCallStatus, _accepted, _info);
+void CarControlProxy<_AttributeExtensions...>::gearSelectionHeadUnit(std::string _selectedGear, CommonAPI::CallStatus &_internalCallStatus, bool &_accepted, const CommonAPI::CallInfo *_info) {
+    delegate_->gearSelectionHeadUnit(_selectedGear, _internalCallStatus, _accepted, _info);
 }
 
 template <typename ... _AttributeExtensions>
-std::future<CommonAPI::CallStatus> CarControlProxy<_AttributeExtensions...>::gearSelectionHeadUniAsync(const std::string &_selectedGear, GearSelectionHeadUniAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
-    return delegate_->gearSelectionHeadUniAsync(_selectedGear, _callback, _info);
+std::future<CommonAPI::CallStatus> CarControlProxy<_AttributeExtensions...>::gearSelectionHeadUnitAsync(const std::string &_selectedGear, GearSelectionHeadUnitAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
+    return delegate_->gearSelectionHeadUnitAsync(_selectedGear, _callback, _info);
 }
 
 template <typename ... _AttributeExtensions>
