@@ -8,7 +8,7 @@ interface CarControl {
     
     method gearSelectionHeadUnit {
         in { 
-            String selectedGear
+            String selectedGea
         }
         out { 
             Boolean accepted
