@@ -19,7 +19,7 @@ define org.genivi.commonapi.someip.deployment for interface commonapi.CarControl
             SomeIpAttributeReliable = true
     }
 
-    method gearSelectionHeadUni {
+    method gearSelectionHeadUnit {
         SomeIpMethodID = 4200
         SomeIpReliable = true
         in {

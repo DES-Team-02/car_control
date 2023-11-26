@@ -6,7 +6,7 @@ interface CarControl {
     attribute String indicator readonly
     attribute String gear readonly
     
-    method gearSelectionHeadUni {
+    method gearSelectionHeadUnit {
         in { 
             String selectedGear
         }
