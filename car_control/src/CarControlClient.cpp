@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <CommonAPI/CommonAPI.hpp>
 #include "../src-gen/core/v0/commonapi/CarControlProxy.hpp"
+#include <thread>
 
 using namespace v0::commonapi;
 
