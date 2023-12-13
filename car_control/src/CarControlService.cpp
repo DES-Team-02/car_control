@@ -10,6 +10,7 @@
 #include <vector>
 #include <unistd.h>
 #include <Python.h>
+#include <thread>
 
 /* signal handler */
 void signalHandler(int signum)
