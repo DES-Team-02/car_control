@@ -1,0 +1,17 @@
+# Config file for the CarControl package
+# Exports the follwing targets:
+#   CarControl - CMake target for CarControl SomeIP
+# Additionally, the following variables are defined:
+#   CarControl_VERSION - The CarControl version number
+
+# Compute paths
+get_filename_component(CARCONTROL_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+
+# Our library dependencies (contains definitions for IMPORTED targets)
+include("${CARCONTROL_CMAKE_DIR}/CarControl-someipTargets.cmake")
+
+# Legacy variable, kept for compatibility
+get_target_property(CARCONTROL_INCLUDE_DIRS CarControl-someip INTERFACE_INCLUDE_DIRECTORIES)
+
+set(CarControl_VERSION @PACKAGE_VERSION@)
+set(CarControl_VERSION_STRING "@PACKAGE_VERSION@")
