@@ -21,8 +21,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
 set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for binaries")
-set(INSTALL_INCLUDE_DIR include/CarControlService CACHE PATH "Installation directory for header files")
-set(DEF_INSTALL_CMAKE_DIR lib/cmake/CarControlService-someip)
+set(INSTALL_INCLUDE_DIR include/CarControl CACHE PATH "Installation directory for header files")
+set(DEF_INSTALL_CMAKE_DIR lib/cmake/CarControl-someip)
 set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Installation directory for CMake files")
 
 foreach(p LIB INCLUDE CMAKE)
@@ -33,12 +33,11 @@ foreach(p LIB INCLUDE CMAKE)
 endforeach()
 
 ## directory paths
-set(PRJ_VAR car_control)
 set(PRJ_SRC_VAR src)
 set(PRJ_SRC_GEN_VAR src-gen)
-set(PRJ_SRC_GEN_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${PRJ_VAR}/${PRJ_SRC_GEN_VAR}) # ./car_control/src-gen
-set(PRJ_SRC_GEN_CORE_DIR ${PRJ_SRC_GEN_DIR}/core) # ./car_control/src-gen/core
-set(PRJ_SRC_GEN_SOMEIP_DIR ${PRJ_SRC_GEN_DIR}/someip) # ./car_control/src-gen/someip
+set(PRJ_SRC_GEN_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${PRJ_SRC_GEN_VAR}) # ./src-gen
+set(PRJ_SRC_GEN_CORE_DIR ${PRJ_SRC_GEN_DIR}/core) # ./src-gen/core
+set(PRJ_SRC_GEN_SOMEIP_DIR ${PRJ_SRC_GEN_DIR}/someip) # ./src-gen/someip
 set(CORE_RUNTIME_DIR ~/capicxx-core-runtime)
 set(SOMEIP_RUNTIME_DIR ~/capicxx-someip-runtime)
 set(VSOMEIP_DIR ~/vsomeip)
@@ -49,13 +48,13 @@ FILE(GLOB PRJ_SOMEIP_LIB_SRCS ${PRJ_SRC_GEN_SOMEIP_DIR}/${COMMONAPI_INTERFACE_VE
 
 ### DIRECTORIES ###
 include_directories(
-    #car_control/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/${PRJ_VAR}/include 	
-    #car_control/src-gen/core
+    #./include
+    ${CMAKE_CURRENT_SOURCE_DIR}/include 	
+    #./src-gen/core
     ${PRJ_SRC_GEN_CORE_DIR}     
-    #car_control/src-gen/someip
+    #./src-gen/someip
     ${PRJ_SRC_GEN_SOMEIP_DIR}
-	${Python3_INCLUDE_DIRS}
+    ${Python3_INCLUDE_DIRS}
     ${COMMONAPI_INCLUDE_DIRS}
     ${COMMONAPI_SOMEIP_INCLUDE_DIRS}
 )
@@ -67,39 +66,39 @@ link_directories(
 
 ### BUILD ###
 ## Service
-add_executable(CarControlService
-    ${PRJ_VAR}/${PRJ_SRC_VAR}/GamePad.cpp
-    ${PRJ_VAR}/${PRJ_SRC_VAR}/PiRacer.cpp
-    ${PRJ_VAR}/${PRJ_SRC_VAR}/CarControlService.cpp
-    ${PRJ_VAR}/${PRJ_SRC_VAR}/CarControlStubImpl.cpp
+add_executable(CarControl
+    ${PRJ_SRC_VAR}/GamePad.cpp
+    ${PRJ_SRC_VAR}/PiRacer.cpp
+    ${PRJ_SRC_VAR}/CarControlService.cpp
+    ${PRJ_SRC_VAR}/CarControlStubImpl.cpp
 )
-# Libaries
-target_link_libraries(CarControlService
+target_link_libraries(CarControl
     CommonAPI 
     CommonAPI-SomeIP 
     vsomeip3
     Python3::Python
     Boost::python
 )
-add_library(CarControlService-someip
+# Libaries
+add_library(CarControl-someip
     SHARED ${PRJ_SOMEIP_LIB_SRCS}
 )
-target_link_libraries(CarControlService-someip
+target_link_libraries(CarControl-someip
     CommonAPI
     CommonAPI-SomeIP
 )
-set_target_properties(CarControlService-someip PROPERTIES VERSION ${MAJOR_VERSION}.${MINOR_VERSION} SOVERSION ${MAJOR_VERSION}.${MINOR_VERSION})
-target_include_directories(CarControlService-someip PUBLIC
+set_target_properties(CarControl-someip PROPERTIES VERSION ${MAJOR_VERSION}.${MINOR_VERSION} SOVERSION ${MAJOR_VERSION}.${MINOR_VERSION})
+target_include_directories(CarControl-someip PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src-gen/core>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src-gen/someip>
     $<INSTALL_INTERFACE:${INSTALL_INCLUDE_DIR}>
 )
-set_target_properties (CarControlService-someip PROPERTIES INTERFACE_LINK_LIBRARY "")
+set_target_properties (CarControl-someip PROPERTIES INTERFACE_LINK_LIBRARY "")
 
 
 ### INSTALL ###
-file(GLOB_RECURSE HEADER_FILES "car_control/src-gen/core/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/*Proxy.hpp")
+file(GLOB_RECURSE HEADER_FILES "./src-gen/core/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/*Proxy*.hpp")
 foreach(HEADER ${HEADER_FILES})
     # Get absolute path of header files.
     get_filename_component(HEADER_ABS_PATH ${HEADER} ABSOLUTE)
@@ -139,9 +138,9 @@ export(PACKAGE CarControl-someip)
 # Create the CarControl-someipConfig.cmake and CarControl-someipConfigVersion files ...
 file(RELATIVE_PATH REL_INCLUDE_DIR "${ABSOLUTE_INSTALL_CMAKE_DIR}" "${ABSOLUTE_INSTALL_INCLUDE_DIR}")
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/car_control/cmake/CarControl-someipConfig.cmake.in
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/CarControl-someipConfig.cmake.in
   "${PROJECT_BINARY_DIR}/CarControl-someipConfig.cmake" @ONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/car_control/cmake/CarControl-someipConfigVersion.cmake.in
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/CarControl-someipConfigVersion.cmake.in
   "${PROJECT_BINARY_DIR}/CarControl-someipConfigVersion.cmake" @ONLY)
 
 install(FILES
