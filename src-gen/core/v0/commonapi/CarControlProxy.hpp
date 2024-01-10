@@ -91,7 +91,7 @@ public:
      * "SUCCESS" or which type of error has occurred. In case of an error, ONLY the CallStatus
      * will be set.
      */
-    virtual void gearSelectionHeadUnit(std::string _selectedGear, CommonAPI::CallStatus &_internalCallStatus, bool &_accepted, const CommonAPI::CallInfo *_info = nullptr);
+    virtual void gearSelectionHeadUnit(std::string _selectedGear, CommonAPI::CallStatus &_internalCallStatus, bool &_accepte, const CommonAPI::CallInfo *_info = nullptr);
     /**
      * Calls gearSelectionHeadUnit with asynchronous semantics.
      *
@@ -167,8 +167,8 @@ CarControlProxy<_AttributeExtensions...>::~CarControlProxy() {
 }
 
 template <typename ... _AttributeExtensions>
-void CarControlProxy<_AttributeExtensions...>::gearSelectionHeadUnit(std::string _selectedGear, CommonAPI::CallStatus &_internalCallStatus, bool &_accepted, const CommonAPI::CallInfo *_info) {
-    delegate_->gearSelectionHeadUnit(_selectedGear, _internalCallStatus, _accepted, _info);
+void CarControlProxy<_AttributeExtensions...>::gearSelectionHeadUnit(std::string _selectedGear, CommonAPI::CallStatus &_internalCallStatus, bool &_accepte, const CommonAPI::CallInfo *_info) {
+    delegate_->gearSelectionHeadUnit(_selectedGear, _internalCallStatus, _accepte, _info);
 }
 
 template <typename ... _AttributeExtensions>

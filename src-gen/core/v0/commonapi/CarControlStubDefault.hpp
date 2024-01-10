@@ -89,8 +89,8 @@ public:
     COMMONAPI_EXPORT virtual void gearSelectionHeadUnit(const std::shared_ptr<CommonAPI::ClientId> _client, std::string _selectedGear, gearSelectionHeadUnitReply_t _reply) {
         (void)_client;
         (void)_selectedGear;
-        bool accepted = false;
-        _reply(accepted);
+        bool accepte = false;
+        _reply(accepte);
     }
 
 

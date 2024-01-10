@@ -63,9 +63,9 @@ CarControlSomeIPProxy::GearAttribute& CarControlSomeIPProxy::getGearAttribute() 
 }
 
 
-void CarControlSomeIPProxy::gearSelectionHeadUnit(std::string _selectedGear, CommonAPI::CallStatus &_internalCallStatus, bool &_accepted, const CommonAPI::CallInfo *_info) {
+void CarControlSomeIPProxy::gearSelectionHeadUnit(std::string _selectedGear, CommonAPI::CallStatus &_internalCallStatus, bool &_accepte, const CommonAPI::CallInfo *_info) {
     CommonAPI::Deployable< std::string, CommonAPI::SomeIP::StringDeployment> deploy_selectedGear(_selectedGear, &::v0::commonapi::CarControl_::gearSelectionHeadUnit_selectedGearDeployment);
-    CommonAPI::Deployable< bool, CommonAPI::EmptyDeployment> deploy_accepted(static_cast< CommonAPI::EmptyDeployment* >(nullptr));
+    CommonAPI::Deployable< bool, CommonAPI::EmptyDeployment> deploy_accepte(static_cast< CommonAPI::EmptyDeployment* >(nullptr));
     CommonAPI::SomeIP::ProxyHelper<
         CommonAPI::SomeIP::SerializableArguments<
             CommonAPI::Deployable<
@@ -87,13 +87,13 @@ void CarControlSomeIPProxy::gearSelectionHeadUnit(std::string _selectedGear, Com
         (_info ? _info : &CommonAPI::SomeIP::defaultCallInfo),
         deploy_selectedGear,
         _internalCallStatus,
-        deploy_accepted);
-    _accepted = deploy_accepted.getValue();
+        deploy_accepte);
+    _accepte = deploy_accepte.getValue();
 }
 
 std::future<CommonAPI::CallStatus> CarControlSomeIPProxy::gearSelectionHeadUnitAsync(const std::string &_selectedGear, GearSelectionHeadUnitAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
     CommonAPI::Deployable< std::string, CommonAPI::SomeIP::StringDeployment> deploy_selectedGear(_selectedGear, &::v0::commonapi::CarControl_::gearSelectionHeadUnit_selectedGearDeployment);
-    CommonAPI::Deployable< bool, CommonAPI::EmptyDeployment> deploy_accepted(static_cast< CommonAPI::EmptyDeployment* >(nullptr));
+    CommonAPI::Deployable< bool, CommonAPI::EmptyDeployment> deploy_accepte(static_cast< CommonAPI::EmptyDeployment* >(nullptr));
     return CommonAPI::SomeIP::ProxyHelper<
         CommonAPI::SomeIP::SerializableArguments<
             CommonAPI::Deployable<
@@ -114,11 +114,11 @@ std::future<CommonAPI::CallStatus> CarControlSomeIPProxy::gearSelectionHeadUnitA
         false,
         (_info ? _info : &CommonAPI::SomeIP::defaultCallInfo),
         deploy_selectedGear,
-        [_callback] (CommonAPI::CallStatus _internalCallStatus, CommonAPI::Deployable< bool, CommonAPI::EmptyDeployment > _accepted) {
+        [_callback] (CommonAPI::CallStatus _internalCallStatus, CommonAPI::Deployable< bool, CommonAPI::EmptyDeployment > _accepte) {
             if (_callback)
-                _callback(_internalCallStatus, _accepted.getValue());
+                _callback(_internalCallStatus, _accepte.getValue());
         },
-        std::make_tuple(deploy_accepted));
+        std::make_tuple(deploy_accepte));
 }
 
 void CarControlSomeIPProxy::getOwnVersion(uint16_t& ownVersionMajor, uint16_t& ownVersionMinor) const {
