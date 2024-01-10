@@ -109,7 +109,7 @@ class CarControlStub
     : public virtual CommonAPI::Stub<CarControlStubAdapter, CarControlStubRemoteEvent>
 {
 public:
-    typedef std::function<void (bool _accepte)> gearSelectionHeadUnitReply_t;
+    typedef std::function<void (bool _accepted)> gearSelectionHeadUnitReply_t;
 
     virtual ~CarControlStub() {}
     void lockInterfaceVersionAttribute(bool _lockAccess) { static_cast<void>(_lockAccess); }
