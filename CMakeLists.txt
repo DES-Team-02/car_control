@@ -10,7 +10,7 @@ find_package(CommonAPI-SomeIP REQUIRED)
 
 ### VARIABLES ###
 ## app info 
-set(APP_PACKAGE_NAME CarControl-someip) 
+set(APP_PACKAGE_NAME commonapi) 
 set(MAJOR_VERSION 0)
 set(MINOR_VERSION 1)
 
@@ -98,7 +98,7 @@ set_target_properties (CarControl-someip PROPERTIES INTERFACE_LINK_LIBRARY "")
 
 
 ### INSTALL ###
-file(GLOB_RECURSE HEADER_FILES "./src-gen/core/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/*Proxy*.hpp")
+file(GLOB_RECURSE HEADER_FILES "./src-gen/core/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/*.hpp")
 foreach(HEADER ${HEADER_FILES})
     # Get absolute path of header files.
     get_filename_component(HEADER_ABS_PATH ${HEADER} ABSOLUTE)
