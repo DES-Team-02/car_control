@@ -1,8 +1,0 @@
-{
-    "commonapi.CarControl" : {
-        "service_id": 4000,
-        "instances" : {
-            "commonapi.CarControl": 4001
-        }
-    }
-}
