@@ -99,7 +99,7 @@ set_target_properties (CarControl-someip PROPERTIES
 file(GLOB_RECURSE PIRACER_FILES "./piracer/*.py")
 foreach(PIRACER_FILE ${PIRACER_FILES})
     get_filename_component(PIRACER_FILE_ABS_PATH ${PIRACER_FILE} ABSOLUTE)                         # Get absolute path of files.
-    file(RELATIVE_PATH PIRACER_FILE_REL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src-gen/core ${PIRACER_FILE_ABS_PATH}) # Get relative path of files.
+    file(RELATIVE_PATH PIRACER_FILE_REL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/piracer ${PIRACER_FILE_ABS_PATH}) # Get relative path of files.
     get_filename_component(PIRACER_FILE_DIR ${PIRACER_FILE_REL_PATH} DIRECTORY)                    # Get directory name from file name.
     install(FILES ${PIRACER_FILE_ABS_PATH} DESTINATION ${INSTALL_PIRACER_DIR}/CarControl) # Install to desired directory.
 endforeach()
@@ -107,7 +107,7 @@ endforeach()
 file(GLOB_RECURSE HEADER_FILES "./src-gen/core/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/*.hpp")
 foreach(HEADER ${HEADER_FILES})
     get_filename_component(HEADER_ABS_PATH ${HEADER} ABSOLUTE)                         # Get absolute path of header files.
-    file(RELATIVE_PATH HEADER_REL_PATH ${CMAKE_CURRENT_SOURCE_DIR} ${HEADER_ABS_PATH})     # Get relative path of header files.
+    file(RELATIVE_PATH HEADER_REL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src-gen/core ${HEADER_ABS_PATH})     # Get relative path of header files.
     get_filename_component(HEADER_DIR ${HEADER_REL_PATH} DIRECTORY)                    # Get directory name from file name.
     install(FILES ${HEADER_ABS_PATH} DESTINATION ${INSTALL_INCLUDE_DIR}/${HEADER_DIR}) # Install headers to desired directory.
 endforeach()
