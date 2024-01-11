@@ -1,5 +1,5 @@
 # car_control
-PiRacer Drivetrain Control with CommonAPI | Submodule | SEA:ME DES
+PiRacer Drivetrain Control with CommonAPI | Submodule for Yocto Image | SEA:ME DES
 <br>
 ## Description
 Reads Gamepad input and sets steering and throttle to PiRacer instance. <br>
