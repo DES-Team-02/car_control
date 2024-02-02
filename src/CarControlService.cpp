@@ -118,6 +118,8 @@ int main() {
 		piracer->setSteering(input.analog_stick_left.x * (-1)); // steering inverted
 		// release python interpreter
 		PyGILState_Release(gilState);
+		// save state
+		//piracer->saveState("state.txt");
 	}
     return 0;
 }

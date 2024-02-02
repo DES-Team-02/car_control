@@ -21,7 +21,7 @@ private:
 	py::object			pModule;
 	py::object			pClass;
 	py::object			pInstance;
-	static PiRacer* 	_instance;
+	static PiRacer*		_instance;
 	static std::mutex	_mutex;
 	double				_throttle;
 protected:
@@ -31,13 +31,15 @@ public:
 	PiRacer(PiRacer&) = delete;
 	PiRacer& operator=(const PiRacer&) = delete;
 	static PiRacer*		getInstance();
-	bool 				deleteInstance();
+	bool				deleteInstance();
 	const std::string&	getGear();
 	const std::string&	getIndicator();
 	bool				setGear(const std::string&);
 	bool				setIndicator(const std::string&);
 	bool				setThrottle(const double&);
 	bool				setSteering(const double&);
+	void 				saveState(const std::string& filename) const; 
+	void 				restoreState(const std::string& filename);
 };
 
 #endif
