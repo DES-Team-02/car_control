@@ -68,6 +68,8 @@ int main() {
     /*create singeltons gamepad and piracer */
 	GamePad* gamepad = GamePad::getInstance();
 	PiRacer* piracer = PiRacer::getInstance();
+	// set default gear to piracer
+	piracer->setGear("N");
 
     /*setup CommonAPI service*/
     // get runtime
