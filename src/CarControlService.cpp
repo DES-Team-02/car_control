@@ -89,7 +89,7 @@ int main() {
     }
     std::cout << "Successfully Registered Service!" << std::endl;
 	// set initial gear
-	std::cout << "Set Initial Gear "P" to Attribute and Service." << std::endl;
+	std::cout << "Set Initial Gear P to Attribute and Service." << std::endl;
 	std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	changeGear("P",piracer,myService);
     /*main loop */
