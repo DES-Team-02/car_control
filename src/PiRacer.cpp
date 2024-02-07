@@ -110,53 +110,52 @@ bool PiRacer::setSteering(const double& steering)
 	return true;
 }
 
-void PiRacer::saveState(const std::string &filename) const
-{
-	// save attributes to file
-	std::ofstream file(filename);
-	if (file.is_open()) {
-		file << "gear: " 		<< _gear 		<< std::endl;
-		file << "indicator: " 	<< _indicator 	<< std::endl;
-		file << "throttle: " 	<< _throttle 	<< std::endl;
-		file << "steering: " 	<< _steering 	<< std::endl;
-		file.close();
-	}
-	else {
-		std::cerr << "Error opening file for saving state." << std::endl;
-	}
-}
+// void PiRacer::saveState(const std::string &filename) const
+// {
+// 	// save attributes to file
+// 	std::ofstream file(filename);
+// 	if (file.is_open()) {
+// 		file << "gear: " 		<< _gear 		<< std::endl;
+// 		file << "indicator: " 	<< _indicator 	<< std::endl;
+// 		file << "throttle: " 	<< _throttle 	<< std::endl;
+// 		file << "steering: " 	<< _steering 	<< std::endl;
+// 		file.close();
+// 	}
+// 	else {
+// 		std::cerr << "Error opening file for saving state." << std::endl;
+// 	}
+// }
 
-void PiRacer::restoreState(const std::string &filename)
-{
-	// restore attributes from file
-	std::ifstream file(filename);
-	if (file.is_open()) {
-		std::string line;
-		while (std::getline(file, line)) {
-			std::istringstream is_line(line);
-			std::string key;
-			if (std::getline(is_line, key, ':')) {
-				std::string value;
-				if (std::getline(is_line, value)) {
-					if (key == "gear") {
-						_gear = value;
-					}
-					else if (key == "indicator") {
-						_indicator = value;
-					}
-					else if (key == "throttle") {
-						_throttle = std::stod(value);
-					}
-					else if (key == "steering") {
-						_steering = std::stod(value);
-					}
-				}
-			}
-		}
-		file.close();
-	}
-	else {
-		std::cerr << "Error opening file for restoring state." << std::endl;
-	}
-
-}
+// void PiRacer::restoreState(const std::string &filename)
+// {
+// 	// restore attributes from file
+// 	std::ifstream file(filename);
+// 	if (file.is_open()) {
+// 		std::string line;
+// 		while (std::getline(file, line)) {
+// 			std::istringstream is_line(line);
+// 			std::string key;
+// 			if (std::getline(is_line, key, ':')) {
+// 				std::string value;
+// 				if (std::getline(is_line, value)) {
+// 					if (key == "gear") {
+// 						_gear = value;
+// 					}
+// 					else if (key == "indicator") {
+// 						_indicator = value;
+// 					}
+// 					else if (key == "throttle") {
+// 						_throttle = std::stod(value);
+// 					}
+// 					else if (key == "steering") {
+// 						_steering = std::stod(value);
+// 					}
+// 				}
+// 			}
+// 		}
+// 		file.close();
+// 	}
+// 	else {
+// 		std::cerr << "Error opening file for restoring state." << std::endl;
+// 	}
+// }

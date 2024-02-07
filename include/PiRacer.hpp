@@ -38,8 +38,8 @@ public:
 	bool				setIndicator(const std::string&);
 	bool				setThrottle(const double&);
 	bool				setSteering(const double&);
-	void 				saveState(const std::string& filename) const; 
-	void 				restoreState(const std::string& filename);
+	// void 				saveState(const std::string& filename) const; 
+	// void 				restoreState(const std::string& filename);
 };
 
 #endif

@@ -34,7 +34,7 @@ void cleanUp()
 	std::cout << "cleanUp(): Python Interpreter Finalized." << std::endl;
 }
 
-void schalter(std::string gear, PiRacer* piracer, std::shared_ptr<CarControlStubImpl> myservice)
+void changeGear(std::string gear, PiRacer* piracer, std::shared_ptr<CarControlStubImpl> myservice)
 {
 	std::cout << " ---------------------------" << std::endl;
 	std::cout << "GamePad tries to set gear. " << std::endl;
@@ -49,7 +49,7 @@ void schalter(std::string gear, PiRacer* piracer, std::shared_ptr<CarControlStub
 	std::cout << " ---------------------------" << std::endl;
 }
 
-void blinker(std::string indicator, PiRacer* piracer, std::shared_ptr<CarControlStubImpl> myservice)
+void changeIndicator(std::string indicator, PiRacer* piracer, std::shared_ptr<CarControlStubImpl> myservice)
 {
 	piracer->setIndicator(indicator);
 	myservice->setIndicatorAttribute(indicator);
@@ -88,9 +88,10 @@ int main() {
         successfullyRegistered = runtime->registerService(domain, instance, myService, connection);
     }
     std::cout << "Successfully Registered Service!" << std::endl;
-	// set initial gear and indicator
-	myservice->setGearAttribute("P");
-
+	// set initial gear
+	std::cout << "Set Initial Gear "P" to Attribute and Service." << std::endl;
+	std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	changeGear("P",piracer,myService);
     /*main loop */
     while (true)
 	{
@@ -100,20 +101,20 @@ int main() {
 		Input input = gamepad->readInput();
 		// handle input
 		if (input.button_x)
-			schalter("N",piracer,myService);
+			changeGear("N",piracer,myService);
 		else if (input.button_y)
-			schalter("R",piracer,myService);
+			changeGear("R",piracer,myService);
 		else if (input.button_a)
-			schalter("D",piracer,myService);
+			changeGear("D",piracer,myService);
 		else if (input.button_b)
-			schalter("P",piracer,myService);
+			changeGear("P",piracer,myService);
 		if (input.button_l1)
-			blinker("Left",piracer,myService);
+			changeIndicator("Left",piracer,myService);
 		else if (input.button_r1)
-			blinker("Right",piracer,myService);
+			changeIndicator("Right",piracer,myService);
 		else
 			// not nice but we need to see a toggle if the button is pushed multiple times
-			blinker("None",piracer,myService); 
+			changeIndicator("None",piracer,myService); 
 		// set attributes to piracer
 		piracer->setThrottle(input.analog_stick_right.y * 0.5); // throttle reduced to 50%
 		piracer->setSteering(input.analog_stick_left.x * (-1)); // steering inverted
