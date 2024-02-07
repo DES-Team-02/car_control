@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <Python.h>
 #include <thread>
+#include <fstream>
 
 /* signal handler */
 void signalHandler(int signum)
@@ -68,8 +69,6 @@ int main() {
     /*create singeltons gamepad and piracer */
 	GamePad* gamepad = GamePad::getInstance();
 	PiRacer* piracer = PiRacer::getInstance();
-	// set default gear to piracer
-	piracer->setGear("N");
 
     /*setup CommonAPI service*/
     // get runtime
@@ -89,7 +88,9 @@ int main() {
         successfullyRegistered = runtime->registerService(domain, instance, myService, connection);
     }
     std::cout << "Successfully Registered Service!" << std::endl;
-	
+	// set initial gear and indicator
+	myservice->setGearAttribute("P");
+
     /*main loop */
     while (true)
 	{
