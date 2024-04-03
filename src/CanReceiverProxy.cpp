@@ -1,4 +1,4 @@
-#include "CanReceiverProxy.hpp"
+#include "CanTranceiverProxy.hpp"
 
 CanProxy::CanProxy()
 {
@@ -18,7 +18,7 @@ void CanProxy::_buildProxy()
 	std::string connection = "car-control";
 
 	_proxy = runtime->buildProxyWithDefaultAttributeExtension\
-		<v0::commonapi::CanReceiverProxy, \
+		<v0::commonapi::CanTranceiverProxy, \
 		CommonAPI::Extensions::AttributeCacheExtension>\(domain, instance, connection);
 
 	std::cout << "Waiting for service to become available." << std::endl;

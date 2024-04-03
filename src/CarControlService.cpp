@@ -1,6 +1,7 @@
 /*includes*/
 #include <CommonAPI/CommonAPI.hpp>
 #include "CarControlStubImpl.hpp"
+#include "CanReceiverProxy.hpp"
 #include "GamePad.hpp"
 #include "PiRacer.hpp"
 #include <iostream>
@@ -55,6 +56,18 @@ void changeIndicator(std::string indicator, PiRacer* piracer, std::shared_ptr<Ca
 	myservice->setIndicatorAttribute(indicator);
 }
 
+double setThrottleLimit(sonarArr_t _sonarArr)
+{
+	unsigned int min = std::min(
+		{
+			_sonarArr.getSensorfrontleft(),
+			_sonarArr.getSensorfrontmiddle(),
+			_sonarArr.getSensorfrontright()
+		}
+	);
+	return std::min(0.5, min * 0.01 - 0.05);
+}
+
 /*main*/
 int main() { 
     /*runtime setups*/
@@ -92,9 +105,21 @@ int main() {
 	std::cout << "Set Initial Gear P to Attribute and Service." << std::endl;
 	std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	changeGear("P",piracer,myService);
+
+	domain      = "local";
+    instance    = "commonapi.CanReceiver";
+    connection  = "client-CanReceiver";
+	std::shared_ptr<typename CommonAPI::DefaultAttributeProxyHelper<CanReceiverProxy, CommonAPI::Extensions::AttributeCacheExtension>::class_t> CanProxy;
+	CanProxy = runtime->buildProxyWithDefaultAttributeExtension<CanReceiverProxy, CommonAPI::Extensions::AttributeCacheExtension>(domain, instance, connection);
+	while (!CanProxy->isAvailable()) {
+		std::this_thread::sleep_for(std::chrono::microseconds(10));
+	}
+	std::cout << "CanReceiver service is available" << std::endl;
+
     /*main loop */
     while (true)
 	{
+		double throttle_limit = setThrottleLimit(CanProxy->getSonar());
 		// locks python interpreter
 		PyGILState_STATE gilState = PyGILState_Ensure();
 		// read input from gamepad
@@ -116,7 +141,7 @@ int main() {
 			// not nice but we need to see a toggle if the button is pushed multiple times
 			changeIndicator("None",piracer,myService); 
 		// set attributes to piracer
-		piracer->setThrottle(input.analog_stick_right.y * 0.5); // throttle reduced to 50%
+		piracer->setThrottle(input.analog_stick_right.y * throttle_limit); // throttle reduced to 50%
 		piracer->setSteering(input.analog_stick_left.x * (-1)); // steering inverted
 		// release python interpreter
 		PyGILState_Release(gilState);
