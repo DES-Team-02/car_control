@@ -1,6 +1,7 @@
 /*includes*/
 #include <CommonAPI/CommonAPI.hpp>
 #include "CarControlStubImpl.hpp"
+#include "CanProxy.hpp"
 #include "GamePad.hpp"
 #include "PiRacer.hpp"
 #include <iostream>
