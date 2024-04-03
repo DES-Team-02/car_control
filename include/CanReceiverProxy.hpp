@@ -1,6 +1,6 @@
 #include <CommonAPI/CommonAPI.hpp>
 #include <CommonAPI/AttributeCacheExtension.hpp>
-#include <v0/commonapi/CanTranceiverProxy.hpp>
+#include <v0/commonapi/CanReceiverProxy.hpp>
 
 typedef v0::commonapi::CanReceiver::SonarArrayStruct sonarArr_t;
 
@@ -8,7 +8,7 @@ class CanProxy()
 {
 private:
 	std::shared_ptr<typename CommonAPI::DefaultAttributeProxyHelper \
-		<v0::commonapi::CanTranceiverProxy, \
+		<v0::commonapi::CanReceiverProxy, \
 		CommonAPI::Extensions::AttributeCacheExtension>::class_t> _proxy;
 	unsigned int	_speed;
 	sonarArr_t		_sonar;
