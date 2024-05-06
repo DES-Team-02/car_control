@@ -39,6 +39,7 @@ set(Car_Control_SRCS
     ./src/CarControlService.cpp
     ./src/CarControlStubImpl.cpp
     ./src/CanProxy.cpp
+    ./src/JetsonProxyImpl.cpp
 )
 ## Library Sources ##
 FILE(GLOB PRJ_SOMEIP_LIB_SRCS ./src-gen/someip/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/*.cpp)
@@ -53,6 +54,7 @@ include_directories(
     ${COMMONAPI_INCLUDE_DIRS}
     ${COMMONAPI_SOMEIP_INCLUDE_DIRS}
     ~/DES_4_CanTransceiver/src-gen/core
+    ~/DES_4_pydbus_module/src-gen/core
 )
 link_directories(
     ${Boost_LIBRARY_DIR}
