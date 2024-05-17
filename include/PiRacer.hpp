@@ -24,6 +24,7 @@ private:
 	static PiRacer*		_instance;
 	static std::mutex	_mutex;
 	double				_throttle;
+	std::string			_mode;
 protected:
 	PiRacer();
 	~PiRacer();
@@ -34,10 +35,12 @@ public:
 	bool				deleteInstance();
 	const std::string&	getGear();
 	const std::string&	getIndicator();
+	const std::string&	getMode();
 	bool				setGear(const std::string&);
 	bool				setIndicator(const std::string&);
 	bool				setThrottle(const double&);
 	bool				setSteering(const double&);
+	bool				setMode(const std::string&);
 	// void 				saveState(const std::string& filename) const; 
 	// void 				restoreState(const std::string& filename);
 };

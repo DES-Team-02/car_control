@@ -8,7 +8,8 @@ PiRacer::PiRacer():
 	_gear("P"),
 	_indicator("None"),
 	_throttle(0.0),
-	_steering(0.0)
+	_steering(0.0),
+	_mode("Manual")
 {
 	try
 	{
@@ -65,6 +66,11 @@ const std::string& PiRacer::getIndicator()
 	return _indicator;
 }
 
+const std::string& PiRacer::getMode()
+{
+	return _mode;
+}
+
 bool PiRacer::setGear(const std::string& gear)
 {
 	//std::cout << "Abs throttel: " << abs(_throttle) << std::endl;
@@ -107,6 +113,17 @@ bool PiRacer::setSteering(const double& steering)
 	//std::cout << "steering set to: " << steering << std::endl;
 	py::object pysetSteering = pInstance.attr("set_steering_percent");
 	pysetSteering(_steering);
+	return true;
+}
+
+bool PiRacer::setMode(const std::string& mode)
+{
+	if (_gear != "D")
+		return false;
+	if (_throttle > 0.2)
+		return false;
+	_mode = mode;
+	//std::cout << "mode set to: " << mode << std::endl;
 	return true;
 }
 
