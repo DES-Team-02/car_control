@@ -40,7 +40,7 @@ public:
 	bool				setIndicator(const std::string&);
 	bool				setThrottle(const double&);
 	bool				setSteering(const double&);
-	bool				setMode(const std::string&);
+	bool				toggleMode();
 	// void 				saveState(const std::string& filename) const; 
 	// void 				restoreState(const std::string& filename);
 };

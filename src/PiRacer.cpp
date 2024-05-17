@@ -116,13 +116,14 @@ bool PiRacer::setSteering(const double& steering)
 	return true;
 }
 
-bool PiRacer::setMode(const std::string& mode)
+bool PiRacer::toggleMode()
 {
-	if (_gear != "D")
+	if (_gear != "D" || _throttle > 0.2)
 		return false;
-	if (_throttle > 0.2)
-		return false;
-	_mode = mode;
+	if (_mode == "Manual")
+		_mode = "Auto";
+	else
+		_mode = "Manual";
 	//std::cout << "mode set to: " << mode << std::endl;
 	return true;
 }
