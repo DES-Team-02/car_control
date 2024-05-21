@@ -40,6 +40,8 @@ set(Car_Control_SRCS
     ./src/CarControlStubImpl.cpp
     ./src/CanProxy.cpp
     ./src/JetsonProxyImpl.cpp
+    ./src/JoyStick.cpp
+    ./src/ShawnGamePad.cpp
 )
 ## Library Sources ##
 FILE(GLOB PRJ_SOMEIP_LIB_SRCS ./src-gen/someip/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/*.cpp)
