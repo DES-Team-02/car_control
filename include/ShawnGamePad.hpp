@@ -1,6 +1,6 @@
 #pragma once
 
-#include "JoyStick.hpp"
+#include "Joystick.hpp"
 
 class Vector3f 
 {

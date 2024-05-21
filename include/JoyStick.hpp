@@ -26,7 +26,7 @@ public:
 	int num_axes;
 	int num_buttons;
 
-	JoyStick();
+	Joystick();
 	~Joystick();
 
 	bool init();

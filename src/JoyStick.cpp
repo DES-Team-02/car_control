@@ -1,6 +1,6 @@
-#include "JoyStick.hpp"
+#include "Joystick.hpp"
 
-JoyStick::Joystick(const std::string& dev_fn = "/dev/input/js0")
+Joystick::Joystick(const std::string& dev_fn = "/dev/input/js0")
 	: dev_fn(dev_fn), jsdev(-1), epoll_fd(-1), num_axes(0), num_buttons(0) {
 	// Initialize the axis and button names maps with standard values
 	axis_names[0x00] = "x";
@@ -27,7 +27,7 @@ JoyStick::Joystick(const std::string& dev_fn = "/dev/input/js0")
 	button_names[0x12C] = "ThumbR";
 }
 
-bool JoyStick::init() 
+bool Joystick::init() 
 {
 	if (access(dev_fn.c_str(), F_OK) == -1) {
 		return false;
@@ -96,7 +96,7 @@ void Joystick::show_map()
 	std::cout << std::endl;
 }
 
-std::tuple<std::string, int, int, std::string, int, float> JoyStick::poll() 
+std::tuple<std::string, int, int, std::string, int, float> Joystick::poll() 
 {
 	std::string button_name;
 	int button_number = -1;
@@ -148,7 +148,7 @@ std::tuple<std::string, int, int, std::string, int, float> JoyStick::poll()
 	return std::make_tuple(button_name, button_number, button_state, axis_name, axis_number, axis_val);
 }
 
-JoyStick::~Joystick()
+Joystick::~Joystick()
 {
 	if (jsdev != -1) close(jsdev);
 	if (epoll_fd != -1) close(epoll_fd);
