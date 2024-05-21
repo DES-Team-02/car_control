@@ -40,7 +40,7 @@ set(Car_Control_SRCS
     ./src/CarControlStubImpl.cpp
     ./src/CanProxy.cpp
     ./src/JetsonProxyImpl.cpp
-    ./src/JoyStick.cpp
+    ./src/Joystick.cpp
     ./src/ShawnGamePad.cpp
 )
 ## Library Sources ##

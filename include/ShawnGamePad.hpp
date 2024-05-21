@@ -28,6 +28,6 @@ class ShanWanGamepad : public Joystick {
 public:
 	ShanWanGamepadInput gamepad_input;
 
-	ShanWanGamepad(const std::string& dev_fn = "/dev/input/js0");
+	ShanWanGamepad(const std::string&);
 	ShanWanGamepadInput read_data();
 };

@@ -26,7 +26,7 @@ public:
 	int num_axes;
 	int num_buttons;
 
-	Joystick();
+	Joystick(const std::string&);
 	~Joystick();
 
 	bool init();
