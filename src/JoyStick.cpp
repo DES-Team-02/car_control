@@ -109,18 +109,18 @@ std::tuple<std::string, int, int, std::string, int, float> Joystick::poll()
 		return std::make_tuple(button_name, button_number, button_state, axis_name, axis_number, axis_val);
 	}
 
-	epoll_event events[1];
-	int nfds = epoll_wait(epoll_fd, events, 1, 10); // 10 milliseconds timeout
+	// epoll_event events[1];
+	// int nfds = epoll_wait(epoll_fd, events, 1, 10); // 10 milliseconds timeout
 
-	if (nfds == -1) {
-		perror("epoll_wait");
-		return std::make_tuple(button_name, button_number, button_state, axis_name, axis_number, axis_val);
-	}
+	// if (nfds == -1) {
+	// 	perror("epoll_wait");
+	// 	return std::make_tuple(button_name, button_number, button_state, axis_name, axis_number, axis_val);
+	// }
 
-	if (nfds == 0) {
-		// No data within 10 milliseconds
-		return std::make_tuple(button_name, button_number, button_state, axis_name, axis_number, axis_val);
-	}
+	// if (nfds == 0) {
+	// 	// No data within 10 milliseconds
+	// 	return std::make_tuple(button_name, button_number, button_state, axis_name, axis_number, axis_val);
+	// }
 
 	js_event ev;
 	ssize_t bytes = read(jsdev, &ev, sizeof(ev));
