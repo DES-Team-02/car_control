@@ -9,7 +9,7 @@ PiRacer::PiRacer():
 	_indicator("None"),
 	_throttle(0.0),
 	_steering(0.0),
-	_mode("Manual")
+	_mode(PiRacer::MODE::MANUAL)
 {
 	try
 	{
@@ -66,7 +66,7 @@ const std::string& PiRacer::getIndicator()
 	return _indicator;
 }
 
-const std::string& PiRacer::getMode()
+PiRacer::MODE PiRacer::getMode()
 {
 	return _mode;
 }
@@ -120,11 +120,19 @@ bool PiRacer::toggleMode()
 {
 	if (_gear != "D" || _throttle > 0.2)
 		return false;
-	if (_mode == "Manual")
-		_mode = "Auto";
-	else
-		_mode = "Manual";
-	//std::cout << "mode set to: " << mode << std::endl;
+	switch (_mode)
+	{
+		case MANUAL:
+			_mode = AUTO;
+			break;
+		case AUTO:
+			_mode = MANUAL;
+			break;
+		default:
+			_mode = MANUAL;
+			break;
+	}
+	std::cout << "mode set to: " << _mode << std::endl;
 	return true;
 }
 

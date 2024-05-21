@@ -123,15 +123,15 @@ int main() {
 		else
 			// not nice but we need to see a toggle if the button is pushed multiple times
 			changeIndicator("None",piracer,myService);
-		if (piracer->getMode() == "Munual")
+		if (piracer->getMode() == PiRacer::MODE::MANUAL)
 		{
 			steering = input.analog_stick_left.x * (-1); // steering inverted
 			throttle = input.analog_stick_right.y * (0.5); // throttle reduced to 50%
 		}
 		// set attributes to piracer
 		PyGILState_STATE gilState = PyGILState_Ensure();
-		piracer->setThrottle(steering);
-		piracer->setSteering(throttle);
+		piracer->setSteering(steering);
+		piracer->setThrottle(throttle);
 		// release python interpreter
 		PyGILState_Release(gilState);
 		// save state
