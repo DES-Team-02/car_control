@@ -119,7 +119,9 @@ int main() {
 		else if (input.button_r1)
 			changeIndicator("Right",piracer,myService);
 		else if (input.button_select)
-			piracer->toggleMode();
+			piracer->setManualMode();
+		else if (input.button_start)
+			piracer->setAutoMode();
 		else
 			// not nice but we need to see a toggle if the button is pushed multiple times
 			changeIndicator("None",piracer,myService);

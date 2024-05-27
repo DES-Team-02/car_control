@@ -30,6 +30,8 @@ public:
 	bool				setIndicator(const std::string&);
 	bool				setThrottle(const double&);
 	bool				setSteering(const double&);
+	bool				setAutoMode();
+	bool				setManualMode();
 	bool				toggleMode();
 	// void 				saveState(const std::string& filename) const; 
 	// void 				restoreState(const std::string& filename);
