@@ -26,8 +26,8 @@ bool JetsonProxyImpl::isAvailable()
 
 bool JetsonProxyImpl::subscribeSteering()
 {
-	if (!_proxy->isAvailable())
-		return false;
+	// if (!_proxy->isAvailable())
+	// 	return false;
 	_proxy->getSteeringAttribute().getChangedEvent().subscribe([&](const double& val){
 		std::cout << "Steering: " << val << std::endl;
 		std::lock_guard<std::mutex> lock(_mutex);
@@ -39,8 +39,8 @@ bool JetsonProxyImpl::subscribeSteering()
 
 bool JetsonProxyImpl::subscribeThrottle()
 {
-	if (!_proxy->isAvailable())
-		return false;
+	// if (!_proxy->isAvailable())
+	// 	return false;
 	_proxy->getThrottleAttribute().getChangedEvent().subscribe([&](const double& val){
 		std::cout << "Throttle: " << val << std::endl;
 		std::lock_guard<std::mutex> lock(_mutex);

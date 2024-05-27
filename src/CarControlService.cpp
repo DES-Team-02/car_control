@@ -96,6 +96,10 @@ int main() {
 	std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	changeGear("P",piracer,myService);
 
+	std::shared_ptr<JetsonProxyImpl> jetsonService = std::make_shared<JetsonProxyImpl>();
+	jetsonService->subscribeSteering();
+	jetsonService->subscribeThrottle();
+
 	double steering = 0;
 	double throttle = 0;
     /*main loop */
@@ -129,6 +133,11 @@ int main() {
 		{
 			steering = input.analog_stick_left.x * (-1); // steering inverted
 			throttle = input.analog_stick_right.y * (0.5); // throttle reduced to 50%
+		}
+		else if (piracer->getMode() == PiRacer::MODE::AUTO)
+		{
+			steering = jetsonService->getSteering();
+			throttle = jetsonService->getThrottle();
 		}
 		// set attributes to piracer
 		PyGILState_STATE gilState = PyGILState_Ensure();
