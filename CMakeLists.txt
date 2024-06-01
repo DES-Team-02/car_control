@@ -38,14 +38,14 @@ set(Car_Control_SRCS
     ./src/PiRacer.cpp
     ./src/CarControlService.cpp
     ./src/CarControlStubImpl.cpp
-    ./src/CanProxy.cpp
     ./src/JetsonProxyImpl.cpp
     ./src/Joystick.cpp
     ./src/ShawnGamePad.cpp
+    ./src/CanProxy.cpp
 )
 ## Library Sources ##
 FILE(GLOB PRJ_SOMEIP_LIB_SRCS ./src-gen/someip/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/*.cpp)
-
+FILE(GLOB PRJ_SOMEIP_LIB_SRCS ./src-gen/someip-trans/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/*.cpp)
 ### INCLUDE & LINK DIRECTORIES ###
 include_directories(
     ./include	             
@@ -55,7 +55,8 @@ include_directories(
     ${Python3_INCLUDE_DIRS}
     ${COMMONAPI_INCLUDE_DIRS}
     ${COMMONAPI_SOMEIP_INCLUDE_DIRS}
-    ~/DES_4_CanTransceiver/src-gen/core
+    ./src-gen/core-trans
+    ./src-gen/someip-trans
     ~/DES_4_pydbus_module/src-gen/core
 )
 link_directories(
@@ -94,6 +95,8 @@ target_include_directories(CarControl-someip PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src-gen/core>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src-gen/someip>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src-gen/core-trans>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src-gen/someip-trans>
     $<INSTALL_INTERFACE:${INSTALL_INCLUDE_DIR}>
 )
 set_target_properties (CarControl-someip PROPERTIES 
@@ -117,6 +120,16 @@ foreach(HEADER ${HEADER_FILES})
     get_filename_component(HEADER_DIR ${HEADER_REL_PATH} DIRECTORY)                    # Get directory name from file name.
     install(FILES ${HEADER_ABS_PATH} DESTINATION ${INSTALL_INCLUDE_DIR}/${HEADER_DIR}) # Install headers to desired directory.
 endforeach()
+
+## Headers ##
+file(GLOB_RECURSE HEADER_FILES "./src-gen/core-trans/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/*.hpp")
+foreach(HEADER ${HEADER_FILES})
+    get_filename_component(HEADER_ABS_PATH ${HEADER} ABSOLUTE)                         # Get absolute path of header files.
+    file(RELATIVE_PATH HEADER_REL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src-gen/core-trans ${HEADER_ABS_PATH})     # Get relative path of header files.
+    get_filename_component(HEADER_DIR ${HEADER_REL_PATH} DIRECTORY)                    # Get directory name from file name.
+    install(FILES ${HEADER_ABS_PATH} DESTINATION ${INSTALL_INCLUDE_DIR}/${HEADER_DIR}) # Install headers to desired directory.
+endforeach()
+
 ## Targets ##
 install(TARGETS CarControl
         EXPORT CarControlTargets

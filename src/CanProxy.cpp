@@ -1,11 +1,9 @@
-#include <thread>
-#include <mutex>
 #include <CommonAPI/CommonAPI.hpp>
 #include <CommonAPI/AttributeCacheExtension.hpp>
 #include "CanProxy.hpp"
 
 CanProxy::CanProxy():
-	_sonar({100,100,100})
+	_sonar({0, 0})
 {
 	std::shared_ptr<CommonAPI::Runtime> runtime = CommonAPI::Runtime::get();
 
@@ -27,31 +25,12 @@ void CanProxy::subscribe_sonar()
 {
 	_proxy->getDistancesAttribute().getChangedEvent().subscribe([&](const Sonar_t& val){
 		std::cout << "Sonar: "
-				<< val.getSensorfrontleft() << ", "
-				<< val.getSensorfrontmiddle() << ", "
-				<< val.getSensorfrontright() << std::endl;
+				<< val.getSonarFront() << ", Rear = "
+				<< val.getSonarRear() << std::endl;
 		std::lock_guard<std::mutex> lock(_mutex);
 		_sonar = val;
 	});
 	std::cout << "Sonar subscribed" << std::endl;
-}
-
-void CanProxy::subscribe_speed()
-{
-	_proxy->getSpeedAttribute().getChangedEvent().subscribe([&](const unsigned int& val){
-		// std::cout << "Speed: " << val << std::endl;
-		{
-			std::lock_guard<std::mutex> lock(_mutex);
-			_speed = val;
-		}
-	});
-	std::cout << "Speed subscribed" << std::endl;
-}
-
-unsigned int CanProxy::getSpeed()
-{
-	std::lock_guard<std::mutex> lock(_mutex);
-	return _speed;
 }
 
 Sonar_t CanProxy::getSonar()

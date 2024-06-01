@@ -14,6 +14,9 @@
 #include <Python.h>
 #include <thread>
 #include <fstream>
+#include "JetsonProxyImpl.hpp"
+#include "JoyStick.hpp"
+#include "Joystick.hpp"
 
 /* signal handler */
 void signalHandler(int signum)
@@ -100,6 +103,9 @@ int main() {
 	jetsonService->subscribeSteering();
 	jetsonService->subscribeThrottle();
 
+	CanProxy canProxy;
+	canProxy.subscribe_sonar();
+
 	double steering = 0;
 	double throttle = 0;
     /*main loop */
@@ -139,6 +145,19 @@ int main() {
 			steering = jetsonService->getSteering();
 			throttle = jetsonService->getThrottle();
 		}
+
+		Sonar_t sonar = canProxy.getSonar();
+
+		if ((sonar.getSonarFront() < 25 && sonar.getSonarFront() >= 15)
+		|| (sonar.getSonarRear() < 25 && sonar.getSonarRear() >= 15)){
+			throttle *= 0.5;
+		} else if ((sonar.getSonarFront() < 15 && sonar.getSonarFront() >= 5) 
+		|| (sonar.getSonarRear() < 15 && sonar.getSonarRear() >= 5)){
+			throttle *= 0.25;
+		} else if (sonar.getSonarFront() < 5 || sonar.getSonarRear() < 5) {
+			throttle *= 0;
+		}
+
 		// set attributes to piracer
 		PyGILState_STATE gilState = PyGILState_Ensure();
 		piracer->setSteering(steering);
