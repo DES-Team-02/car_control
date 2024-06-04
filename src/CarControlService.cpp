@@ -147,16 +147,16 @@ int main() {
 		}
 
 		Sonar_t sonar = canService->getSonar();
+		unsigned int sonarValue = piracer->getGear() == "D" 
+								? sonar.getSonarFront()
+								: sonar.getSonarRear();
 
-		if ((sonar.getSonarFront() < 25 && sonar.getSonarFront() >= 15)
-		|| (sonar.getSonarRear() < 25 && sonar.getSonarRear() >= 15)){
+		if (sonarValue < 25 && sonarValue >= 15)
 			throttle *= 0.5;
-		} else if ((sonar.getSonarFront() < 15 && sonar.getSonarFront() >= 5) 
-		|| (sonar.getSonarRear() < 15 && sonar.getSonarRear() >= 5)){
+		else if (sonarValue < 15 && sonarValue >= 5)
 			throttle *= 0.25;
-		} else if (sonar.getSonarFront() < 5 || sonar.getSonarRear() < 5) {
+		else if (sonarValue < 5)
 			throttle *= 0;
-		}
 
 		// set attributes to piracer
 		PyGILState_STATE gilState = PyGILState_Ensure();
