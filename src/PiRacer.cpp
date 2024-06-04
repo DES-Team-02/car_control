@@ -127,8 +127,6 @@ bool PiRacer::setAutoMode()
 
 bool PiRacer::setManualMode()
 {
-	if (_gear != "D" || _throttle > 0.2)
-		return false;
 	_mode = PiRacer::MODE::MANUAL;
 	std::cout << "Mode Set to Manual";
 	return true;
