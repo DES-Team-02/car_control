@@ -103,8 +103,8 @@ int main() {
 	jetsonService->subscribeSteering();
 	jetsonService->subscribeThrottle();
 
-	CanProxy canProxy;
-	canProxy.subscribe_sonar();
+	std::shared_ptr<CanProxy> canService = std::make_shared<CanProxy>();
+	canService->subscribe_sonar();
 
 	double steering = 0;
 	double throttle = 0;
@@ -146,7 +146,7 @@ int main() {
 			throttle = jetsonService->getThrottle();
 		}
 
-		Sonar_t sonar = canProxy.getSonar();
+		Sonar_t sonar = canService->getSonar();
 
 		if ((sonar.getSonarFront() < 25 && sonar.getSonarFront() >= 15)
 		|| (sonar.getSonarRear() < 25 && sonar.getSonarRear() >= 15)){

@@ -3,7 +3,7 @@
 #include "CanProxy.hpp"
 
 CanProxy::CanProxy():
-	_sonar({0, 0})
+	_sonar({100, 100})
 {
 	std::shared_ptr<CommonAPI::Runtime> runtime = CommonAPI::Runtime::get();
 
@@ -12,11 +12,11 @@ CanProxy::CanProxy():
 	std::string connection = "client-CanTransceiver";
 
 	_proxy = runtime->buildProxyWithDefaultAttributeExtension<v0::commonapi::CanTransceiverProxy, CommonAPI::Extensions::AttributeCacheExtension>(domain, instance, connection);
-	std::cout << "Waiting for service to become available." << std::endl;
-	while (!_proxy->isAvailable()) {
-		std::this_thread::sleep_for(std::chrono::microseconds(10));
-	}
-	std::cout << "CAN service is available" << std::endl;
+	// std::cout << "Waiting for service to become available." << std::endl;
+	// while (!_proxy->isAvailable()) {
+	// 	std::this_thread::sleep_for(std::chrono::microseconds(10));
+	// }
+	// std::cout << "CAN service is available" << std::endl;
 }
 
 CanProxy::~CanProxy(){}
