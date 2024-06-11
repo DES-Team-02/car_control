@@ -17,7 +17,7 @@ set(MINOR_VERSION 1)
 ## Compiler Flags ##
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -std=c++17")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 ## Install Directories ##
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
@@ -44,8 +44,8 @@ set(Car_Control_SRCS
     ./src/CanProxy.cpp
 )
 ## Library Sources ##
-FILE(GLOB PRJ_SOMEIP_LIB_SRCS ./src-gen/someip/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/*.cpp)
-FILE(GLOB PRJ_SOMEIP_LIB_SRCS ./src-gen/someip-trans/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/*.cpp)
+FILE(GLOB CARCONTROL_SOMEIP_LIB_SRCS ./src-gen/someip/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/CarControl*.cpp)
+
 ### INCLUDE & LINK DIRECTORIES ###
 include_directories(
     ./include	             
@@ -55,9 +55,6 @@ include_directories(
     ${Python3_INCLUDE_DIRS}
     ${COMMONAPI_INCLUDE_DIRS}
     ${COMMONAPI_SOMEIP_INCLUDE_DIRS}
-    ./src-gen/core-trans
-    ./src-gen/someip-trans
-    ~/DES_4_pydbus_module/src-gen/core
 )
 link_directories(
     ${Boost_LIBRARY_DIR}
@@ -80,7 +77,7 @@ target_link_libraries(CarControl
 )
 ## Libaries ##
 add_library(CarControl-someip
-    SHARED ${PRJ_SOMEIP_LIB_SRCS}
+    SHARED ${CARCONTROL_SOMEIP_LIB_SRCS}
 )
 target_link_libraries(CarControl-someip
     CommonAPI
