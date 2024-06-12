@@ -43,8 +43,6 @@ set(Car_Control_SRCS
     ./src/ShawnGamePad.cpp
     ./src/CanProxy.cpp
 )
-## Library Sources ##
-FILE(GLOB CARCONTROL_SOMEIP_LIB_SRCS ./src-gen/someip/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/CarControl*.cpp)
 
 ### INCLUDE & LINK DIRECTORIES ###
 include_directories(
@@ -75,6 +73,10 @@ target_link_libraries(CarControl
     Python3::Python
     Boost::python
 )
+
+## Library Sources ##
+FILE(GLOB CARCONTROL_SOMEIP_LIB_SRCS ./src-gen/someip/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/CarControl*.cpp)
+
 ## Libaries ##
 add_library(CarControl-someip
     SHARED ${CARCONTROL_SOMEIP_LIB_SRCS}
@@ -83,6 +85,16 @@ target_link_libraries(CarControl-someip
     CommonAPI
     CommonAPI-SomeIP
 )
+
+FILE(GLOB JETSON_SOMEIP_LIB_SRCS ./src-gen/someip/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/Jetson*.cpp)
+add_library(Jetson-someip
+    SHARED ${JETSON_SOMEIP_LIB_SRCS}
+)
+target_link_libraries(Jetson-someip
+    CommonAPI
+    CommonAPI-SomeIP
+)
+
 ## Properties ##
 set_target_properties(CarControl-someip PROPERTIES 
     VERSION ${MAJOR_VERSION}.${MINOR_VERSION} 
@@ -142,6 +154,10 @@ install(TARGETS CarControl-someip
         RUNTIME DESTINATION ${INSTALL_BIN_DIR}
         ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
         PUBLIC_HEADER DESTINATION "${INSTALL_INCLUDE_DIR}"
+)
+
+install(TARGETS Jetson-someip
+        LIBRARY DESTINATION ${INSTALL_LIB_DIR}
 )
 
 ### EXPORT ###
