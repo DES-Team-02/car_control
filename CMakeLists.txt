@@ -95,6 +95,15 @@ target_link_libraries(Jetson-someip
     CommonAPI-SomeIP
 )
 
+FILE(GLOB CANTRANSCEIVER_SOMEIP_LIB_SRCS ./src-gen/someip/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/CanTransceiver*.cpp)
+add_library(CanTransceiver-someip
+    SHARED ${JETSON_SOMEIP_LIB_SRCS}
+)
+target_link_libraries(CanTransceiver-someip
+    CommonAPI
+    CommonAPI-SomeIP
+)
+
 ## Properties ##
 set_target_properties(CarControl-someip PROPERTIES 
     VERSION ${MAJOR_VERSION}.${MINOR_VERSION} 
@@ -157,6 +166,10 @@ install(TARGETS CarControl-someip
 )
 
 install(TARGETS Jetson-someip
+        LIBRARY DESTINATION ${INSTALL_LIB_DIR}
+)
+
+install(TARGETS CanTransceiver-someip
         LIBRARY DESTINATION ${INSTALL_LIB_DIR}
 )
 
