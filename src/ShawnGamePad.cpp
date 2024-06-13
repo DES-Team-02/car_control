@@ -3,10 +3,10 @@
 ShanWanGamepad::ShanWanGamepad(const std::string& dev_fn = "/dev/input/js0")
 : Joystick(dev_fn) 
 {
-	extern errno;
+	// extern errno;
 
 	if (!Joystick::init())
-		std::cerr << errno << std::endl;
+		std::cerr << "Gamepad not found" << std::endl;
 }
 
 ShanWanGamepadInput ShanWanGamepad::read_data()
