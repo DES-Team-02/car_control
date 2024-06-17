@@ -138,7 +138,7 @@ int main() {
 		if (piracer->getMode() == PiRacer::MODE::MANUAL)
 		{
 			steering = input.analog_stick_left.x * (-1); // steering inverted
-			throttle = input.analog_stick_right.y * (0.5); // throttle reduced to 50%
+			throttle = input.analog_stick_right.y * (0.35); // throttle reduced to 50%
 		}
 		else if (piracer->getMode() == PiRacer::MODE::AUTO)
 		{
@@ -151,10 +151,14 @@ int main() {
 								? sonar.getSonarFront()
 								: sonar.getSonarRear();
 
-		if (sonarValue < 25 && sonarValue >= 15)
+		if (sonarValue < 50 && sonarValue >= 40)
+			throttle *= 0.75;
+		else if (sonarValue < 40 && sonarValue >= 30)
 			throttle *= 0.5;
-		else if (sonarValue < 15 && sonarValue >= 5)
+		else if (sonarValue < 30 && sonarValue >= 20)
 			throttle *= 0.25;
+		else if (sonarValue < 20 && sonarValue >= 5)
+			throttle *= 0.15;
 		else if (sonarValue < 5)
 			throttle *= 0;
 
