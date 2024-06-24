@@ -1,0 +1,46 @@
+import "platform:/plugin/org.genivi.commonapi.someip/deployment/CommonAPI-4-SOMEIP_deployment_spec.fdepl"
+import "CanTransceiver.fidl"
+
+define org.genivi.commonapi.someip.deployment for interface commonapi.CanTransceiver {
+    SomeIpServiceID = 3000
+    attribute speed {
+        SomeIpNotifierEventGroups = { 3300 }
+        SomeIpNotifierID = 33000
+        SomeIpGetterID = 3301
+        SomeIpAttributeReliable = true
+    }
+    attribute rpm {
+        SomeIpNotifierEventGroups = { 3400 }
+        SomeIpNotifierID = 34000
+        SomeIpGetterID = 3401
+        SomeIpAttributeReliable = true
+    }
+    attribute sonarFront {
+        SomeIpNotifierEventGroups = { 3500 }
+        SomeIpNotifierID = 35000
+        SomeIpGetterID = 3501
+        SomeIpAttributeReliable = true
+    }
+    attribute sonarRear {
+        SomeIpNotifierEventGroups = { 3500 }
+        SomeIpNotifierID = 35001
+        SomeIpGetterID = 3502
+        SomeIpAttributeReliable = true
+    }
+    attribute distances {
+        SomeIpNotifierEventGroups = { 3500 }
+        SomeIpNotifierID = 35002
+        SomeIpGetterID = 3503
+        SomeIpAttributeReliable = true
+    }
+}
+
+define org.genivi.commonapi.someip.deployment for provider as Service {
+    instance commonapi.CanTransceiver {
+        InstanceId = "commonapi.CanTransceiver"
+        SomeIpInstanceID = 3001
+        SomeIpUnicastAddress = "192.168.0.2"
+        SomeIpReliableUnicastPort = 30010
+        SomeIpUnreliableUnicastPort = 30011
+    }
+} 

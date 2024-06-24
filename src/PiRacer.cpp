@@ -8,7 +8,8 @@ PiRacer::PiRacer():
 	_gear("P"),
 	_indicator("None"),
 	_throttle(0.0),
-	_steering(0.0)
+	_steering(0.0),
+	_mode(PiRacer::MODE::MANUAL)
 {
 	try
 	{
@@ -65,6 +66,11 @@ const std::string& PiRacer::getIndicator()
 	return _indicator;
 }
 
+PiRacer::MODE PiRacer::getMode()
+{
+	return _mode;
+}
+
 bool PiRacer::setGear(const std::string& gear)
 {
 	//std::cout << "Abs throttel: " << abs(_throttle) << std::endl;
@@ -107,6 +113,42 @@ bool PiRacer::setSteering(const double& steering)
 	//std::cout << "steering set to: " << steering << std::endl;
 	py::object pysetSteering = pInstance.attr("set_steering_percent");
 	pysetSteering(_steering);
+	return true;
+}
+
+bool PiRacer::setAutoMode()
+{
+	if (_gear != "D" || _throttle > 0.2)
+		return false;
+	_mode = PiRacer::MODE::AUTO;
+	std::cout << "Mode Set to Auto";
+	return true;
+}
+
+bool PiRacer::setManualMode()
+{
+	_mode = PiRacer::MODE::MANUAL;
+	std::cout << "Mode Set to Manual";
+	return true;
+}
+
+bool PiRacer::toggleMode()
+{
+	if (_gear != "D" || _throttle > 0.2)
+		return false;
+	switch (_mode)
+	{
+		case MANUAL:
+			_mode = AUTO;
+			break;
+		case AUTO:
+			_mode = MANUAL;
+			break;
+		default:
+			_mode = MANUAL;
+			break;
+	}
+	std::cout << "mode set to: " << _mode << std::endl;
 	return true;
 }
 

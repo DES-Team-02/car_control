@@ -7,8 +7,8 @@
 * If a copy of the MPL was not distributed with this file, You can obtain one at
 * http://mozilla.org/MPL/2.0/.
 */
-#ifndef V0_COMMONAPI_CAR_CONTROL_HPP_
-#define V0_COMMONAPI_CAR_CONTROL_HPP_
+#ifndef V0_COMMONAPI_JETSON_HPP_
+#define V0_COMMONAPI_JETSON_HPP_
 
 
 
@@ -28,19 +28,19 @@
 namespace v0 {
 namespace commonapi {
 
-class CarControl {
+class Jetson {
 public:
-    virtual ~CarControl() { }
+    virtual ~Jetson() { }
 
     static inline const char* getInterface();
     static inline CommonAPI::Version getInterfaceVersion();
 };
 
-const char* CarControl::getInterface() {
-    return ("commonapi.CarControl:v0_1");
+const char* Jetson::getInterface() {
+    return ("commonapi.Jetson:v0_1");
 }
 
-CommonAPI::Version CarControl::getInterfaceVersion() {
+CommonAPI::Version Jetson::getInterfaceVersion() {
     return CommonAPI::Version(0, 1);
 }
 
@@ -55,4 +55,4 @@ namespace CommonAPI {
 // Compatibility
 namespace v0_1 = v0;
 
-#endif // V0_COMMONAPI_CAR_CONTROL_HPP_
+#endif // V0_COMMONAPI_JETSON_HPP_

@@ -1,5 +1,5 @@
 import "platform:/plugin/org.genivi.commonapi.someip/deployment/CommonAPI-4-SOMEIP_deployment_spec.fdepl"
-import "carcontrol.fidl"
+import "CarControl.fidl"
 
 define org.genivi.commonapi.someip.deployment for interface commonapi.CarControl {
 
@@ -13,11 +13,12 @@ define org.genivi.commonapi.someip.deployment for interface commonapi.CarControl
     }
 
     attribute gear {
-            SomeIpNotifierEventGroups = { 4200 }
-            SomeIpNotifierID = 42000
-            SomeIpGetterID = 4201
-            SomeIpAttributeReliable = true
+        SomeIpNotifierEventGroups = { 4200 }
+        SomeIpNotifierID = 42000
+        SomeIpGetterID = 4201
+        SomeIpAttributeReliable = true
     }
+    
 
     method gearSelectionHeadUnit {
         SomeIpMethodID = 4200

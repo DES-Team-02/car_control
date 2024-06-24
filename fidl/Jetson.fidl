@@ -1,0 +1,8 @@
+package commonapi
+
+interface Jetson {
+    version { major 0 minor 1 }
+
+    attribute Double steering readonly
+    attribute Double throttle readonly
+}

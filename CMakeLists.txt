@@ -15,9 +15,9 @@ set(APP_PACKAGE_NAME commonapi)
 set(MAJOR_VERSION 0)
 set(MINOR_VERSION 1)
 ## Compiler Flags ##
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -std=c++17")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 ## Install Directories ##
 set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
@@ -38,9 +38,11 @@ set(Car_Control_SRCS
     ./src/PiRacer.cpp
     ./src/CarControlService.cpp
     ./src/CarControlStubImpl.cpp
+    ./src/JetsonProxyImpl.cpp
+    ./src/Joystick.cpp
+    ./src/ShawnGamePad.cpp
+    ./src/CanProxy.cpp
 )
-## Library Sources ##
-FILE(GLOB PRJ_SOMEIP_LIB_SRCS ./src-gen/someip/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/*.cpp)
 
 ### INCLUDE & LINK DIRECTORIES ###
 include_directories(
@@ -71,14 +73,28 @@ target_link_libraries(CarControl
     Python3::Python
     Boost::python
 )
+
+## Library Sources ##
+FILE(GLOB CARCONTROL_SOMEIP_LIB_SRCS ./src-gen/someip/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/CarControl*.cpp)
+
 ## Libaries ##
 add_library(CarControl-someip
-    SHARED ${PRJ_SOMEIP_LIB_SRCS}
+    SHARED ${CARCONTROL_SOMEIP_LIB_SRCS}
 )
 target_link_libraries(CarControl-someip
     CommonAPI
     CommonAPI-SomeIP
 )
+
+FILE(GLOB JETSON_SOMEIP_LIB_SRCS ./src-gen/someip/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/Jetson*.cpp)
+add_library(Jetson-someip
+    SHARED ${JETSON_SOMEIP_LIB_SRCS}
+)
+target_link_libraries(Jetson-someip
+    CommonAPI
+    CommonAPI-SomeIP
+)
+
 ## Properties ##
 set_target_properties(CarControl-someip PROPERTIES 
     VERSION ${MAJOR_VERSION}.${MINOR_VERSION} 
@@ -88,6 +104,8 @@ target_include_directories(CarControl-someip PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src-gen/core>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src-gen/someip>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src-gen/core-trans>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src-gen/someip-trans>
     $<INSTALL_INTERFACE:${INSTALL_INCLUDE_DIR}>
 )
 set_target_properties (CarControl-someip PROPERTIES 
@@ -111,6 +129,16 @@ foreach(HEADER ${HEADER_FILES})
     get_filename_component(HEADER_DIR ${HEADER_REL_PATH} DIRECTORY)                    # Get directory name from file name.
     install(FILES ${HEADER_ABS_PATH} DESTINATION ${INSTALL_INCLUDE_DIR}/${HEADER_DIR}) # Install headers to desired directory.
 endforeach()
+
+## Headers ##
+file(GLOB_RECURSE HEADER_FILES "./src-gen/core-trans/v${MAJOR_VERSION}/${APP_PACKAGE_NAME}/*.hpp")
+foreach(HEADER ${HEADER_FILES})
+    get_filename_component(HEADER_ABS_PATH ${HEADER} ABSOLUTE)                         # Get absolute path of header files.
+    file(RELATIVE_PATH HEADER_REL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/src-gen/core-trans ${HEADER_ABS_PATH})     # Get relative path of header files.
+    get_filename_component(HEADER_DIR ${HEADER_REL_PATH} DIRECTORY)                    # Get directory name from file name.
+    install(FILES ${HEADER_ABS_PATH} DESTINATION ${INSTALL_INCLUDE_DIR}/${HEADER_DIR}) # Install headers to desired directory.
+endforeach()
+
 ## Targets ##
 install(TARGETS CarControl
         EXPORT CarControlTargets
@@ -126,6 +154,10 @@ install(TARGETS CarControl-someip
         RUNTIME DESTINATION ${INSTALL_BIN_DIR}
         ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
         PUBLIC_HEADER DESTINATION "${INSTALL_INCLUDE_DIR}"
+)
+
+install(TARGETS Jetson-someip
+        LIBRARY DESTINATION ${INSTALL_LIB_DIR}
 )
 
 ### EXPORT ###
